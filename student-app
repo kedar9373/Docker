@@ -1,7 +1,5 @@
 FROM centos:7
-
 LABEL Devops ="kedar_mugave"
-
 
 RUN yum install java-11-openjdk -y
 ADD https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.99/bin/apache-tomcat-8.5.99.tar.gz /opt
@@ -9,9 +7,12 @@ RUN tar -xzvf /opt/apache-tomcat-8.5.99.tar.gz -C /opt/
 
 WORKDIR /opt/apache-tomcat-8.5.99/webapps/
 ADD https://s3-us-west-2.amazonaws.com/studentapi-cit/student.war ./
-
 RUN cd ../..
 
 WORKDIR /opt/apache-tomcat-8.5.99/bin/
 EXPOSE 8080
-CMD bin/catalina.sh start
+CMD ["/opt/apache-tomcat-8.5.99/bin/catalina.sh", "run"]
+
+
+#docker build -t my-tomcat-app:T1 .
+# docker run -d -p 8080:8080 my-tomcat-app:T1
